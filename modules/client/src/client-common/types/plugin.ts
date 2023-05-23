@@ -258,30 +258,6 @@ export type SubgraphMembers = {
     address: string;
   }[];
 };
-export enum PrepareInstallationStep {
-  PREPARING = "preparing",
-  DONE = "done",
-}
-
-export type PrepareInstallationStepValue =
-  | { key: PrepareInstallationStep.PREPARING; txHash: string }
-  | {
-    key: PrepareInstallationStep.DONE;
-  } & ApplyInstallationParams;
-
-export type ApplyInstallationParamsBase = {
-  permissions: MultiTargetPermission[];
-  versionTag: VersionTag;
-  pluginRepo: string;
-  pluginAddress: string;
-};
-
-export type ApplyInstallationParams = ApplyInstallationParamsBase & {
-  helpers: string[];
-};
-export type DecodedApplyInstallationParams = ApplyInstallationParamsBase & {
-  helpersHash: string;
-};
 
 export type VersionTag = {
   build: number;

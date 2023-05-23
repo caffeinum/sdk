@@ -24,6 +24,7 @@ import { defaultAbiCoder } from "@ethersproject/abi";
 import { LIVE_CONTRACTS } from "../../../client-common/constants";
 import { getNetwork, Networkish } from "@ethersproject/providers";
 import { IMultisigClientEncoding } from "../../interfaces";
+import { INSTALLATION_ABI } from "../constants";
 
 /**
  * Encoding module for the SDK Multisig Client
@@ -49,11 +50,7 @@ export class MultisigClientEncoding extends ClientCore
       throw new UnsupportedNetworkError(networkName);
     }
     const hexBytes = defaultAbiCoder.encode(
-      // members, [onlyListed, minApprovals]
-      [
-        "address[]",
-        "tuple(bool, uint16)",
-      ],
+      INSTALLATION_ABI,
       [
         params.members,
         [

@@ -12,7 +12,12 @@ import {
 import { AddressZero } from "@ethersproject/constants";
 import { Contract } from "@ethersproject/contracts";
 import { erc20ContractAbi } from "../abi/erc20";
-import { ClientCore, GasFeeEstimation, TokenType } from "../../client-common";
+import {
+  ClientCore,
+  GasFeeEstimation,
+  PrepareInstallationParams,
+  TokenType,
+} from "../../client-common";
 import {
   CreateDaoParams,
   DepositParams,
@@ -27,6 +32,12 @@ import { IClientEstimation } from "../../interfaces";
  * Estimation module the SDK Generic Client
  */
 export class ClientEstimation extends ClientCore implements IClientEstimation {
+  public async prepareInstallation(
+    _params: PrepareInstallationParams,
+  ): Promise<GasFeeEstimation> {
+    return {average: BigInt(0), max: BigInt(0)}
+    // return this.estimation.prepareInstallation(params);
+  }
   /**
    * Estimates the gas fee of creating a DAO
    *

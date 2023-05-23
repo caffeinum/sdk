@@ -91,3 +91,36 @@ export enum TokenType {
   ERC20 = "erc20",
   ERC721 = "erc721",
 }
+
+export type PrepareInstallationParams = {
+  daoAddressOrEns: string;
+  pluginRepo: string;
+  version?: {
+    build: number;
+    release: number;
+  };
+  installationParams?: any[];
+  installationAbi?: string[];
+};
+
+export enum PrepareInstallationStep {
+  PREPARING = "preparing",
+  DONE = "done",
+}
+
+export type PrepareInstallationStepValue =
+  | { key: PrepareInstallationStep.PREPARING; txHash: string }
+  | { key: PrepareInstallationStep.DONE } & ApplyInstallationParams;
+
+export type ApplyInstallationParamsBase = {
+  permissions: MultiTargetPermission[];
+  versionTag: VersionTag;
+  pluginRepo: string;
+  pluginAddress: string;
+};
+export type ApplyInstallationParams = ApplyInstallationParamsBase & {
+  helpers: string[];
+};
+export type DecodedApplyInstallationParams = ApplyInstallationParamsBase & {
+  helpersHash: string;
+};

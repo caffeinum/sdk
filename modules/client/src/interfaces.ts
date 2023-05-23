@@ -1,14 +1,14 @@
 // This file contains the definitions of the general purpose DAO client
 
 import {
-  DaoAction,
-  GasFeeEstimation,
-  InterfaceParams,
-} from "./client-common/types/common";
-import { IClientCore } from "./client-common/interfaces";
-import {
   ApplyInstallationParams,
+  DaoAction,
   DecodedApplyInstallationParams,
+  GasFeeEstimation,
+  IClientCore,
+  InterfaceParams,
+  PrepareInstallationParams,
+  PrepareInstallationStepValue,
 } from "./client-common";
 import {
   ApplyUninstallationParams,
@@ -75,6 +75,10 @@ export interface IClientMethods extends IClientCore {
   prepareUninstallation: (
     params: PrepareUninstallationParams,
   ) => AsyncGenerator<PrepareUninstallationStepValue>;
+  /** Prepare uninstallation of a plugin */
+  prepareInstallation: (
+    params: PrepareInstallationParams,
+  ) => AsyncGenerator<PrepareInstallationStepValue>;
 }
 
 export interface IClientEncoding extends IClientCore {
