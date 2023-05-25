@@ -20,6 +20,7 @@ import {
   CanVoteParams,
   ClientCore,
   computeProposalStatusFilter,
+  ContractVotingSettings,
   CreateMajorityVotingProposalParams,
   ExecuteProposalStep,
   ExecuteProposalStepValue,
@@ -246,27 +247,15 @@ export class AddresslistVotingClientMethods extends ClientCore
     if (!SupportedNetworksArray.includes(networkName)) {
       throw new UnsupportedNetworkError(networkName);
     }
-    const {
-      votingMode,
-      supportThreshold,
-      minParticipation,
-      minDuration,
-      minProposerVotingPower,
-    } = votingSettingsToContract(params.settings.votingSettings);
-    // todo params
     yield* prepareGenericInstallation(this.web3, {
       daoAddressOrEns: params.daoAddressOrEns,
       pluginRepo: LIVE_CONTRACTS[networkName].addresslistVotingRepo,
       version: params.versionTag,
       installationAbi: INSTALLATION_ABI,
       installationParams: [
-        [
-          votingMode,
-          supportThreshold,
-          minParticipation,
-          minDuration,
-          minProposerVotingPower,
-        ],
+        Object.values(
+          votingSettingsToContract(params.settings.votingSettings),
+        ) as ContractVotingSettings,
         params.settings.addresses,
       ],
     });

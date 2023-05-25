@@ -67,7 +67,7 @@ Returns:
         who: "0x12345...",
         where: "0x12345...",
         operation: 1, // GRANT
-      permissionId: "0x1234567890..."
+        permissionId: "0x1234567890..."
       }
     ]
   }
