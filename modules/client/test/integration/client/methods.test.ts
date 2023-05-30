@@ -68,6 +68,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { deployErc20 } from "../../helpers/deploy-erc20";
 import { buildMultisigDAO } from "../../helpers/build-daos";
 import { JsonRpcProvider } from "@ethersproject/providers";
+import { INSTALLATION_ABI } from "../../../src/multisig/internal/constants";
 
 jest.spyOn(SupportedNetworksArray, "includes").mockReturnValue(true);
 jest.spyOn(Context.prototype, "network", "get").mockReturnValue(
@@ -411,7 +412,7 @@ describe("Client", () => {
           {
             daoAddressOrEns: dao,
             pluginRepo: deployment.multisigRepo.address,
-            installationAbi: [ "address[]", "tuple(bool, uint16)"],
+            installationAbi: INSTALLATION_ABI,
             installationParams: [["0x1234567890123456789012345678901234567890"], [true, 1]],
           },
         );

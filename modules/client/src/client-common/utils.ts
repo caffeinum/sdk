@@ -23,6 +23,7 @@ import {
 import {
   ApplyInstallationParams,
   DecodedApplyInstallationParams,
+  MetadataAbiInput,
   PrepareInstallationParams,
   PrepareInstallationStep,
   PrepareInstallationStepValue,
@@ -33,7 +34,7 @@ import { keccak256 } from "@ethersproject/keccak256";
 import { AddressZero } from "@ethersproject/constants";
 import { IClientWeb3Core } from "./interfaces";
 import { LIVE_CONTRACTS } from "./constants";
-import  {isAddress} from "@ethersproject/address";
+import { isAddress } from "@ethersproject/address";
 
 export function unwrapProposalParams(
   params: CreateMajorityVotingProposalParams,
@@ -177,6 +178,31 @@ export function applyInstallatonParamsFromContract(
   };
 }
 
+export function getNamedTypesFromMetadata(
+  inputs: MetadataAbiInput[] = [],
+): string[] {
+  return inputs.map((input) => {
+    if (input.type.startsWith("tuple")) {
+      const tupleResult = getNamedTypesFromMetadata(input.components).join(
+        ", ",
+      );
+
+      let tupleString = `tuple(${tupleResult})`;
+
+      if (input.type.endsWith("[]")) {
+        tupleString = tupleString.concat("[]");
+      }
+
+      return tupleString;
+    } else if (input.type.endsWith("[]")) {
+      const baseType = input.type.slice(0, -2);
+      return `${baseType}[] ${input.name}`;
+    } else {
+      return `${input.type} ${input.name}`;
+    }
+  });
+}
+
 export async function* prepareGenericInstallation(
   web3: IClientWeb3Core,
   params: PrepareInstallationParams,
@@ -204,7 +230,7 @@ export async function* prepareGenericInstallation(
   // encode installation params
   const { installationParams = [], installationAbi = [] } = params;
   const data = defaultAbiCoder.encode(
-    installationAbi,
+    getNamedTypesFromMetadata(installationAbi),
     installationParams,
   );
   // connect to psp contract

@@ -7,6 +7,7 @@ import { isAddress } from "@ethersproject/address";
 import {
   ClientCore,
   DaoAction,
+  getNamedTypesFromMetadata,
   PluginInstallItem,
   SupportedNetwork,
   SupportedNetworksArray,
@@ -50,7 +51,7 @@ export class MultisigClientEncoding extends ClientCore
       throw new UnsupportedNetworkError(networkName);
     }
     const hexBytes = defaultAbiCoder.encode(
-      INSTALLATION_ABI,
+      getNamedTypesFromMetadata(INSTALLATION_ABI),
       [
         params.members,
         [

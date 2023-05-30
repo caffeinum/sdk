@@ -100,7 +100,7 @@ export type PrepareInstallationParams = {
     release: number;
   };
   installationParams?: any[];
-  installationAbi?: string[];
+  installationAbi?: MetadataAbiInput[];
 };
 
 export enum PrepareInstallationStep {
@@ -123,4 +123,12 @@ export type ApplyInstallationParams = ApplyInstallationParamsBase & {
 };
 export type DecodedApplyInstallationParams = ApplyInstallationParamsBase & {
   helpersHash: string;
+};
+
+export type MetadataAbiInput = {
+  name: string;
+  type: string;
+  internalType: string;
+  description: string;
+  components?: MetadataAbiInput[];
 };
