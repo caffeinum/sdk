@@ -13,6 +13,7 @@ import {
   NoProviderError,
   ProposalCreationError,
   resolveIpfsCid,
+  UnsupportedNetworkError,
 } from "@aragon/sdk-common";
 import { isAddress } from "@ethersproject/address";
 import { IAddresslistVotingClientMethods } from "../../interfaces";

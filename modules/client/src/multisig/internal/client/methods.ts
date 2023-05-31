@@ -11,6 +11,7 @@ import {
   NoProviderError,
   ProposalCreationError,
   resolveIpfsCid,
+  UnsupportedNetworkError,
 } from "@aragon/sdk-common";
 import { isAddress } from "@ethersproject/address";
 import {
@@ -44,12 +45,8 @@ import {
   ProposalSortBy,
   SortDirection,
   SubgraphMembers,
-<<<<<<< HEAD
-  VersionTag,
-=======
   SupportedNetwork,
   SupportedNetworksArray,
->>>>>>> 4fa11a3a (add generic prepare installation)
 } from "../../../client-common";
 import {
   EMPTY_PROPOSAL_METADATA_LINK,

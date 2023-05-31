@@ -1,3 +1,5 @@
+import { MultiTargetPermission, VersionTag } from "./plugin";
+
 export enum SupportedNetwork {
   MAINNET = "homestead",
   GOERLI = "goerli",

@@ -14,6 +14,7 @@ import {
   NoProviderError,
   ProposalCreationError,
   resolveIpfsCid,
+  UnsupportedNetworkError,
 } from "@aragon/sdk-common";
 import {
   CanVoteParams,
@@ -32,6 +33,8 @@ import {
   ProposalSortBy,
   SortDirection,
   SubgraphVotingSettings,
+  SupportedNetwork,
+  SupportedNetworksArray,
   TokenType,
   VoteProposalParams,
   VoteProposalStep,
