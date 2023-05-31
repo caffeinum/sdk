@@ -5,7 +5,6 @@ import {
 } from "@aragon/sdk-common";
 import {
   computeProposalStatus,
-  ContractVotingSettings,
   DaoAction,
   ProposalMetadata,
   SubgraphAction,
@@ -142,9 +141,7 @@ export function addresslistVotingInitParamsToContract(
   params: AddresslistVotingPluginInstall,
 ): ContractAddresslistVotingInitParams {
   return [
-    Object.values(
-      votingSettingsToContract(params.votingSettings),
-    ) as ContractVotingSettings,
+    votingSettingsToContract(params.votingSettings),
     params.addresses,
   ];
 }

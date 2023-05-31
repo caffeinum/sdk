@@ -1,6 +1,5 @@
 import {
   computeProposalStatus,
-  ContractVotingSettings,
   DaoAction,
   ProposalMetadata,
   SubgraphAction,
@@ -206,9 +205,7 @@ export function tokenVotingInitParamsToContract(
     ];
   }
   return [
-    Object.values(
-      votingSettingsToContract(params.votingSettings),
-    ) as ContractVotingSettings,
+    votingSettingsToContract(params.votingSettings),
     token,
     balances,
   ];

@@ -6,7 +6,6 @@ import {
 import { isAddress } from "@ethersproject/address";
 import {
   ClientCore,
-  ContractVotingSettings,
   DaoAction,
   encodeUpdateVotingSettingsAction,
   getNamedTypesFromMetadata,
@@ -49,9 +48,7 @@ export class AddresslistVotingClientEncoding extends ClientCore
     const hexBytes = defaultAbiCoder.encode(
       getNamedTypesFromMetadata(INSTALLATION_ABI),
       [
-        Object.values(
-          votingSettingsToContract(params.votingSettings),
-        ) as ContractVotingSettings,
+        votingSettingsToContract(params.votingSettings),
         params.addresses,
       ],
     );

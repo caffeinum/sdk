@@ -1,13 +1,14 @@
-import {
-  MajorityVotingBase,
-  MajorityVotingBase__factory,
-} from "@aragon/osx-ethers";
+import { MajorityVotingBase__factory } from "@aragon/osx-ethers";
 import { bytesToHex, hexToBytes } from "@aragon/sdk-common";
-import { VotingMode, VotingSettings } from "./types/plugin";
+import {
+  ContractVotingSettings,
+  VotingMode,
+  VotingSettings,
+} from "./types/plugin";
 import { FunctionFragment, Interface, Result } from "@ethersproject/abi";
 import { BigNumber } from "@ethersproject/bignumber";
 import { votingModeFromContracts, votingModeToContracts } from "./utils";
-import { encodeRatio, decodeRatio } from "@aragon/sdk-common";
+import { decodeRatio, encodeRatio } from "@aragon/sdk-common";
 
 export function decodeUpdatePluginSettingsAction(
   data: Uint8Array,
@@ -30,7 +31,15 @@ export function encodeUpdateVotingSettingsAction(
   // get hex bytes
   const hexBytes = votingInterface.encodeFunctionData(
     "updateVotingSettings",
-    [args],
+    [
+      {
+        votingMode: args[0],
+        supportThreshold: args[1],
+        minParticipation: args[2],
+        minDuration: args[3],
+        minProposerVotingPower: args[4],
+      },
+    ],
   );
   // Strip 0x => encode in Uint8Array
   return hexToBytes(hexBytes);
@@ -48,16 +57,16 @@ function pluginSettingsFromContract(result: Result): VotingSettings {
 
 export function votingSettingsToContract(
   params: VotingSettings,
-): MajorityVotingBase.VotingSettingsStruct {
-  return {
-    votingMode: BigNumber.from(
+): ContractVotingSettings {
+  return [
+    BigNumber.from(
       votingModeToContracts(params.votingMode || VotingMode.STANDARD),
     ),
-    supportThreshold: encodeRatio(params.supportThreshold, 6),
-    minParticipation: encodeRatio(params.minParticipation, 6),
-    minDuration: BigNumber.from(params.minDuration),
-    minProposerVotingPower: BigNumber.from(params.minProposerVotingPower || 0),
-  };
+    BigNumber.from(encodeRatio(params.supportThreshold, 6)),
+    BigNumber.from(encodeRatio(params.minParticipation, 6)),
+    BigNumber.from(params.minDuration),
+    BigNumber.from(params.minProposerVotingPower || 0),
+  ];
 }
 
 export function getFunctionFragment(

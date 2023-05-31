@@ -20,7 +20,6 @@ import {
   CanVoteParams,
   ClientCore,
   computeProposalStatusFilter,
-  ContractVotingSettings,
   CreateMajorityVotingProposalParams,
   ExecuteProposalStep,
   ExecuteProposalStepValue,
@@ -53,9 +52,7 @@ import {
   toAddresslistVotingProposal,
   toAddresslistVotingProposalListItem,
 } from "../utils";
-import {
-  AddresslistVoting__factory,
-} from "@aragon/osx-ethers";
+import { AddresslistVoting__factory } from "@aragon/osx-ethers";
 import { toUtf8Bytes } from "@ethersproject/strings";
 import {
   EMPTY_PROPOSAL_METADATA_LINK,
@@ -253,9 +250,7 @@ export class AddresslistVotingClientMethods extends ClientCore
       version: params.versionTag,
       installationAbi: INSTALLATION_ABI,
       installationParams: [
-        Object.values(
-          votingSettingsToContract(params.settings.votingSettings),
-        ) as ContractVotingSettings,
+        votingSettingsToContract(params.settings.votingSettings),
         params.settings.addresses,
       ],
     });
