@@ -17,5 +17,5 @@ for label in labels:
             })
             hasLabels = True
 
-print("::set-output name=hasLabels::" + str(hasLabels))
+print(f"::set-output name=hasLabels::{str(hasLabels)}")
 print("::set-output name=matrix::" + json.dumps({'include': matrix}))
